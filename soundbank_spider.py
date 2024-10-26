@@ -31,8 +31,8 @@ def get_url(sound_type, selected_product, page_index = 1):
 
 
 
-class ClaviaSoundBankSpider(scrapy.Spider):
-    name = 'clavia_sound_bank_spider'
+class SoundBankSpider(scrapy.Spider):
+    name = 'soundbank_spider'
     sound_types = [
         "piano-library",
         "sample-library",
@@ -41,7 +41,7 @@ class ClaviaSoundBankSpider(scrapy.Spider):
     ]
 
     def __init__(self, selected_product=54, *args, **kwargs):
-        super(ClaviaSoundBankSpider, self).__init__(*args, **kwargs)
+        super(SoundBankSpider, self).__init__(*args, **kwargs)
         self.start_urls = [
             get_url(sound_type, selected_product=selected_product, page_index=1)
             for sound_type in self.sound_types
@@ -66,7 +66,7 @@ class ClaviaSoundBankSpider(scrapy.Spider):
                 sound_item = SoundItem(**item)
                 sound_item.link = f'{NORD_KEYBOARDS_URL}{sound_item.link["href"]}'
 
-                # Nord Piano Library / Direct download
+                # Nord Piano Library / Follow API urls
                 # Nord Sample Library / Follow API urls
                 # Sound Collections / Direct download
                 # Signature Sound Banks / Direct download
